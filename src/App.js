@@ -1,6 +1,5 @@
 import ReactECharts from 'echarts-for-react';
 import { useEffect, useState } from 'react';
-import Axios from 'axios';
 function App() {
   //winedata variable for storing csv data
   const [winedata,setWinedata]=useState([]);
@@ -20,10 +19,12 @@ function App() {
     })
     setWinedata(newArray);
   }
-  //fetching data from csv file on application mount 
+  
+  //fetching data from csv file on application mount
   useEffect(() => {
     async function fetchData() {
-      const {data} = await Axios.get("winedata.csv");
+      const res = await fetch("winedata.csv");
+      const data=await res.text();
       processCSV(data);
     }
     fetchData();
